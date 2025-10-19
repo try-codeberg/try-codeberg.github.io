@@ -1,0 +1,48 @@
+post by https://www.linkedin.com/in/junho-park-ccnets/recent-activity/all/
+When I think back, school covered many complex topics.
+
+When there are three variables (X, Y, E), how many equations do you need?
+You need three equations to get one clear answer for each variable (X, Y, E).
+
+I also learned that:
+Given Y and E as causes, and X as the observed result:
+To satisfy a causal relationship, you need to prove:
+
+(1) Independence: Y and E are independent, P(Y, E) = P(Y) ⋅ P(E)
+(2) Conditional Dependence: P(Y ∣ X, E) ≠ P(Y ∣ X)
+-> Then, a causal relationship between X, Y, and E is established.
+(3) Necessity & Sufficiency: Y and E are necessary & sufficient to generate X.
+-> It is satisfied when X is generated precisely as Y and E occur together.
+
+So just as three equations are needed to solve three variables,
+at least three conditional probability distributions are required to establish a causal relationship among X, Y, and E.
+
+
+<Causal Learning Framework>
+In Machine Learning, modeling a causal relationship among three variables (X, Y, E) likewise would require three networks.
+A single network with a single loss cannot capture the full set of conditional probabilities.
+
+Put differently, three losses are necessary to solve for three variables; no single loss can represent the conditional probability across all three.
+The three losses must be coordinated so that each corresponds to a network’s conditional probability distribution.
+
+Given X and Y in a dataset,
+For variable X, a network for P(X ∣ Y, E)
+For variable Y, a network for P(Y ∣ X, E)
+For variable E, a network for P(E ∣ X)
+
+Over time, it became clear to me that three modules, three losses, and three errors of conditional distributions are not optional, but take shape naturally in causal learning for neural networks.
+
+
+Assumptions in the model:
+1) Association between X and Y → ensures necessity & sufficiency.
+2) Model capacity → ensures convergence of errors during training.
+3) Latent space control for E → regulates the explanatory space so E remains distinct from Y in generating X (engineering side).
+4) Causal validity of Y → must genuinely have a corresponding E in the causal structure that, together, generates X (the model learns causality if it exists).
+
+How the model learns causal properties:
+- Necessity & Sufficiency → learned through P(X | Y, E), supported by Assumption 1.
+- Independence -> follows from necessity & sufficiency combined with Assumption 3.
+- Conditional Dependence -> learned through P(Y | X, E), supported by Assumption 4.
+
+Unlike the current causal study or standard SCM setup, there is no hidden confounder U here in this ML framework.
+Based on these assumptions and validations, does this framework not only capture the causal relationship among (X, Y, E), but also qualify as a counterfactual model?
